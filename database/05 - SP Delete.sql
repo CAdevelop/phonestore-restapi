@@ -1,14 +1,6 @@
 use PhoneStore;
 go;
 
--- Marca
-create procedure sp_borrarMarca (
-	@id smallint
-)
-as
-	delete Producto.Marca where idMarca = @id;
-go;
-
 -- Telefonos
 create procedure sp_borrarTelefono (
 	@idTelefono int

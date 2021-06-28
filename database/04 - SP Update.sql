@@ -1,20 +1,11 @@
 use PhoneStore;
 go;
 
--- Marcas
-create procedure sp_actualizarMarca (
-	@id smallint,
-	@nombre varchar(30)
-)
-as
-	update Producto.Marca set nombre = @nombre where idMarca = @id;
-go;
-
 -- Telefonos
 create procedure sp_actualizarTelefono (
 	@idTelefono int,
 	@nombre varchar(50),
-	@idMarca smallint,
+	@marca varchar(30),
 	@procesador varchar(30),
 	@os varchar(20),
 	@camaraPrincipal varchar(50),
@@ -27,7 +18,7 @@ create procedure sp_actualizarTelefono (
 	@precioCompra money,
 	@existencias smallint,
 	@existenciasMinimas smallint,
-	@estado tinyint
+	@estado varchar(20)
 )
 as
 	update Producto.Telefono set 

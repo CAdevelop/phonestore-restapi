@@ -26,8 +26,7 @@ create schema Persona;
 create table Producto.Telefono (
 	idTelefono int constraint pk_Telefono_idTelefono primary key identity(1,1),
 	nombre varchar(50) not null,
-	marca varchar(30) constraint pk_Telefono_idMarca foreign key
-	references Producto.Marca (idMarca),
+	marca varchar(30) not null,
 	procesador varchar(30) not null,
 	os varchar(20) not null,
 	camaraPrincipal varchar(50) not null,

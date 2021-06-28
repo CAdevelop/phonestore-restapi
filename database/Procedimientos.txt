@@ -26,13 +26,6 @@ Usuario:
 	4. Modificar registro x
 	5. Eliminar registro x
 
-Marca:
-	1. Obtener todos los registros x
-	2. Obtener registros por id x
-	3. Crear nuevo registro x
-	4. Modificar registro x
-	5. Eliminar registro x
-
 Telefono:
 	1. Obtener todos los registros x
 	2. Obtener registros por id x

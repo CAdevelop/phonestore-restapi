@@ -1,14 +1,6 @@
 use PhoneStore;
 go;
 
--- Marcas
-create procedure sp_nuevaMarca (
-	@nombre varchar(30)
-)
-as
-	insert into Producto.Marca values (@nombre);
-go;
-
 -- Telefonos
 create procedure sp_nuevoTelefono (
 	@nombre varchar(50),
