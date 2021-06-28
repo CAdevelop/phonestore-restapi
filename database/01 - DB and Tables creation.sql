@@ -8,7 +8,7 @@ create database PhoneStore on primary (
 	maxsize = 20mb,
 	filegrowth = 5mb
 ) log on (
-	name = 'PhoneStore_lof',
+	name = 'PhoneStore_log',
 	filename = 'D:\Programacion\SQL\SQL Server\PhoneStore\PhoneStore.ldf',
 	size = 5mb,
 	maxsize = 10mb,
@@ -18,10 +18,16 @@ create database PhoneStore on primary (
 use PhoneStore;
 go;
 
-create table Telefono (
+create schema Entrada;
+create schema Salida;
+create schema Producto;
+create schema Persona;
+
+create table Producto.Telefono (
 	idTelefono int constraint pk_Telefono_idTelefono primary key identity(1,1),
 	nombre varchar(50) not null,
-	marca varchar(30) not null,
+	marca varchar(30) constraint pk_Telefono_idMarca foreign key
+	references Producto.Marca (idMarca),
 	procesador varchar(30) not null,
 	os varchar(20) not null,
 	camaraPrincipal varchar(50) not null,
@@ -37,14 +43,14 @@ create table Telefono (
 	estado varchar(20) not null
 );
 
-create table Usuario (
+create table Persona.Usuario (
 	idUsuario int constraint pk_Usuario_idUsuario primary key identity(1,1),
 	nombre varchar(60) not null,
 	correo varchar(50) not null,
-	rol varchar(30) not null
+	rol varchar(20) not null
 );
 
-create table Proveedor (
+create table Persona.Proveedor (
 	idProveedor int constraint pk_Proveedor_idProveedor primary key identity(1,1),
 	nombres varchar(30) not null,
 	apellidos varchar(30) not null,
@@ -52,41 +58,39 @@ create table Proveedor (
 	telefono varchar(20) not null
 );
 
-create table Entrada (
+create table Entrada.Entrada (
 	idEntrada int constraint pk_Entrada_idEntrada primary key identity(1,1),
 	fechaEntrada smalldatetime default getDate(),
 	idProveedor int constraint fk_Entrada_idProveedor foreign key
-	references Proveedor (idProveedor),
+	references Persona.Proveedor (idProveedor),
 	observacion varchar(200) not null,
 	idUsuario int constraint fk_Entrada_idUsuario foreign key
-	references Usuario (idUsuario)
+	references Persona.Usuario (idUsuario)
 );
 
-create table Detalle_Entrada (
+create table Entrada.Detalle_Entrada (
 	idEntrada int constraint fk_Detalle_Entrada_idEntrada foreign key 
-	references Entrada (idEntrada),
+	references Entrada.Entrada (idEntrada),
 	idTelefono int constraint fk_Detalle_Entrada_idTelefono foreign key
-	references Telefono (idTelefono),
+	references Producto.Telefono (idTelefono),
 	cantidadEntrante smallint not null
 );
 
-create table Venta (
+create table Salida.Venta (
 	idVenta int constraint pk_Venta_idVenta primary key identity(1,1),
 	fechaVenta smalldatetime default getDate(),
 	observacion varchar(200) not null,
 	idUsuario int constraint fk_Venta_idUsuario foreign key
-	references Usuario (idUsuario),
+	references Persona.Usuario (idUsuario),
 	descuento decimal not null,
 	cliente varchar(50) not null,
-	subTotal money not null,
-	total money not null
+	subTotal money not null
 );
 
-create table Detalle_Venta (
+create table Salida.Detalle_Venta (
 	idVenta int constraint fk_Detalle_Venta_idVenta foreign key 
-	references Venta (idVenta),
+	references Salida.Venta (idVenta),
 	idTelefono int constraint fk_Detalle_Venta_idTelefono foreign key
-	references Telefono (idTelefono),
-	cantidadVendida smallint not null,
-	gananciaVenta money not null
+	references Producto.Telefono (idTelefono),
+	cantidadVendida smallint not null
 );

@@ -25,7 +25,7 @@ create procedure sp_nuevoTelefono (
 	@precioCompra money,
 	@existencias smallint,
 	@existenciasMinimas smallint,
-	@estado tinyint
+	@estado varchar(20)
 )
 as
 	insert into Producto.Telefono (
