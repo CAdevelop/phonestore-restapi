@@ -12,7 +12,7 @@ go;
 -- Telefonos
 create procedure sp_nuevoTelefono (
 	@nombre varchar(50),
-	@idMarca smallint,
+	@marca varchar(30),
 	@procesador varchar(30),
 	@os varchar(20),
 	@camaraPrincipal varchar(50),
@@ -29,11 +29,11 @@ create procedure sp_nuevoTelefono (
 )
 as
 	insert into Producto.Telefono (
-		nombre, idMarca, procesador, os, camaraPrincipal,
+		nombre, marca, procesador, os, camaraPrincipal,
 		camaraFrontal, bateria, almacenamiento, ram, color,
 		precioVenta, precioCompra, existencias, existenciasMinimas, estado
 	) values (
-		@nombre, @idMarca, @procesador, @os, @camaraPrincipal,
+		@nombre, @marca, @procesador, @os, @camaraPrincipal,
 		@camaraFrontal, @bateria, @almacenamiento, @ram, @color, 
 		@precioVenta, @precioCompra, @existencias, @existenciasMinimas, @estado
 	);

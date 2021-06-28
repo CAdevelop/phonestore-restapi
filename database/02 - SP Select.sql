@@ -1,19 +1,6 @@
 use PhoneStore;
 go;
 
--- Marcas
-create procedure sp_obtenerMarcas 
-as
-	select * from Producto.Marca;
-go;
-
-create procedure sp_obtenerMarcasPorId (
-	@id smallint
-)
-as
-	select * from Producto.Marca where idMarca = @id;
-go;
-
 -- Telefonos
 create procedure sp_obtenerTelefonos
 as
