@@ -56,3 +56,44 @@ as
 		nombres = @nombres, apellidos = @apellidos, correo = @correo, rol = @rol
 	where idUsuario = @idUsuario;
 go;
+
+-- Entrada
+create procedure sp_actualizarEntrada (
+	@idEntrada int,
+	@idProveedor int,
+	@idUsuario int,
+	@observacion varchar(200),
+	@idTelefono int,
+	@cantidadEntrante smallint
+)
+as
+	update Entrada.Entrada set 
+		idProveedor = @idProveedor, idUsuario = @idUsuario, observacion = @observacion
+	where idEntrada = @idEntrada;
+
+	update Entrada.Detalle_Entrada set
+		idTelefono = @idTelefono, cantidadEntrante = @cantidadEntrante
+	where idEntrada = @idEntrada
+go;
+
+-- Venta
+create procedure sp_actualizarVenta (
+	@idVenta int,
+	@idUsuario int,
+	@cliente varchar(50),
+	@observacion varchar(200),
+	@idTelefono int,
+	@cantidadVendida smallint,
+	@descuento decimal,
+	@subtotal money
+)
+as
+	update Salida.Venta set
+		observacion = @observacion, idUsuario = @idUsuario, descuento = @descuento,
+		cliente = @cliente, subtotal = @subtotal
+	where idVenta = @idVenta;
+
+	update Salida.Detalle_Venta set
+		idTelefono = @idTelefono, cantidadVendida = @cantidadVendida
+	where idVenta = @idVenta;
+go;

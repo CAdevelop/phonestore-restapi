@@ -20,6 +20,8 @@ create procedure sp_nuevoTelefono (
 	@estado varchar(20)
 )
 as
+	set nocount on;
+
 	insert into Producto.Telefono (
 		nombre, marca, procesador, os, camaraPrincipal,
 		camaraFrontal, bateria, almacenamiento, ram, color,
@@ -39,6 +41,8 @@ create procedure sp_nuevoProveedor (
 	@telefono varchar(20) = 'No registrado'
 )
 as
+	set nocount on;
+
 	insert into Persona.Proveedor values (
 		@nombres, @apellidos, @correo, @telefono
 	);
@@ -52,7 +56,67 @@ create procedure sp_nuevoUsuario (
 	@rol varchar(20)
 )
 as
+	set nocount on;
+
 	insert into Persona.Usuario values (
 		@nombres, @apellidos, @correo, @rol
+	);
+go;
+
+-- Entrada
+create procedure sp_nuevaEntrada (
+	@idProveedor int, 
+	@idUsuario int,
+	@idTelefono int,
+	@cantidadEntrante smallint,
+	@observacion varchar(200)
+)
+as
+	set nocount on;
+	
+	declare @idEntrada int;
+
+	insert into Entrada.Entrada (
+		fechaEntrada, idProveedor, observacion, idUsuario
+	) values (
+		getDate(), @idProveedor, @observacion, @idUsuario
+	);
+
+	set @idEntrada = @@IDENTITY;
+
+	insert into Entrada.Detalle_Entrada (
+		idEntrada, idTelefono, cantidadEntrante
+	) values (
+		@idEntrada, @idTelefono, @cantidadEntrante
+	);
+go;
+
+-- Venta
+create procedure sp_nuevaVenta (
+	@idUsuario int,
+	@descuento decimal,
+	@cliente varchar(50),
+	@subtotal money,
+	@idTelefono int,
+	@cantidadVendida smallint,
+	@observacion varchar(200)
+)
+as
+	set nocount on;
+	
+	declare @idVenta int;
+
+	insert into Salida.Venta (
+		fechaVenta, observacion, idUsuario, descuento, cliente, subtotal
+	) values (
+		getDate(), @observacion, @idUsuario, @descuento, @cliente, @subtotal
+	);
+
+	set @idVenta = @@IDENTITY;
+
+	insert into Salida.Detalle_Venta (
+		idVenta, idTelefono, cantidadVendida
+	) values (
+		@idVenta, @idTelefono, @cantidadVendida
 	);
 go;

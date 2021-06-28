@@ -1,16 +1,10 @@
-Detalle_Entrada: 
-	1. Obtener todos los registros
-	2. Obtener registros por id
-	3. Crear nuevo registro
-	4. Modificar registro
-	5. Eliminar registro
-
 Entrada:
-	1. Obtener todos los registros
-	2. Obtener registros por id
-	3. Crear nuevo registro
-	4. Modificar registro
-	5. Eliminar registro
+Detalle_Entrada: 
+	1. Obtener todos los registros x
+	2. Obtener registros por id x
+	3. Crear nuevo registro x
+	4. Modificar registro x
+	5. Eliminar registro x
 
 Proveedor:
 	1. Obtener todos los registros x
@@ -33,16 +27,10 @@ Telefono:
 	4. Modificar registro x
 	5. Eliminar registro x
 
+Venta:
 Detalle_Venta:
-	1. Obtener todos los registros
-	2. Obtener registros por id
-	3. Crear nuevo registro
-	4. Modificar registro
-	5. Eliminar registro
-
-Detalle_Entrada: 
-	1. Obtener todos los registros
-	2. Obtener registros por id
-	3. Crear nuevo registro
-	4. Modificar registro
-	5. Eliminar registro
+	1. Obtener todos los registros x
+	2. Obtener registros por id x
+	3. Crear nuevo registro x
+	4. Modificar registro x
+	5. Eliminar registro x

@@ -39,3 +39,41 @@ create procedure sp_obtenerUsuarioPorId (
 as
 	select * from Persona.Usuario where idUsuario = @id;
 go;
+
+-- Entrada
+create procedure sp_obtenerEntradas
+as
+	select E.idEntrada, E.idProveedor, E.idUsuario, DE.idTelefono, DE.cantidadEntrante, E.observacion, E.fechaEntrada 
+		from Entrada.Entrada E
+		inner join Entrada.Detalle_Entrada DE
+		on E.idEntrada = DE.idEntrada;
+go;
+
+create procedure sp_obtenerEntradasPorId (
+	@idEntrada int
+)
+as
+	select E.idEntrada, E.idProveedor, E.idUsuario, DE.idTelefono, DE.cantidadEntrante, E.observacion, E.fechaEntrada 
+		from Entrada.Entrada E
+		inner join Entrada.Detalle_Entrada DE
+		on E.idEntrada = DE.idEntrada
+	where E.idEntrada = @idEntrada;
+go;
+
+-- Venta
+create procedure sp_obtenerVentas 
+as
+	select V.idVenta, DV.idTelefono, V.cliente, DV.cantidadVendida, V.descuento, V.subtotal, V.observacion, V.fechaVenta from Salida.Venta V
+		inner join Salida.Detalle_Venta DV
+		on V.idVenta = DV.idVenta;
+go;
+
+create procedure sp_obtenerVentasPorId (
+	@idVenta int
+)
+as
+	select V.idVenta, DV.idTelefono, V.cliente, DV.cantidadVendida, V.descuento, V.subtotal, V.observacion, V.fechaVenta from Salida.Venta V
+		inner join Salida.Detalle_Venta DV
+		on V.idVenta = DV.idVenta
+	where V.idVenta = @idVenta;
+go;
