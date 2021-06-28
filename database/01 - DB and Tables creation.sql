@@ -34,7 +34,7 @@ create table Telefono (
 	precioCompra money not null, 
 	existencias smallint not null,
 	existenciasMinimas smallint not null,
-	estado tinyint not null
+	estado varchar(20) not null
 );
 
 create table Usuario (
