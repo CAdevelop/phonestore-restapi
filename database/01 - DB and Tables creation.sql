@@ -35,16 +35,22 @@ create table Producto.Telefono (
 	almacenamiento varchar(20) not null,
 	ram varchar(20) not null,
 	color varchar(20) not null,
+	estado varchar(20) not null
+);
+
+create table Producto.Detalle_Telefono (
+	idTelefono int constraint fk_Detalle_Telefono_idTelefono foreign key
+	references Producto.Telefono (idTelefono),
 	precioVenta money not null, 
 	precioCompra money not null, 
 	existencias smallint not null,
 	existenciasMinimas smallint not null,
-	estado varchar(20) not null
 );
 
 create table Persona.Usuario (
 	idUsuario int constraint pk_Usuario_idUsuario primary key identity(1,1),
-	nombre varchar(60) not null,
+	nombres varchar(30) not null,
+	apellidos varchar(30) not null,
 	correo varchar(50) not null,
 	rol varchar(20) not null
 );
@@ -81,7 +87,7 @@ create table Salida.Venta (
 	observacion varchar(200) not null,
 	idUsuario int constraint fk_Venta_idUsuario foreign key
 	references Persona.Usuario (idUsuario),
-	descuento decimal not null,
+	descuento decimal(5,2) not null,
 	cliente varchar(50) not null,
 	subTotal money not null
 );

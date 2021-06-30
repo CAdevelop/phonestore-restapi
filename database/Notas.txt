@@ -1,0 +1,1 @@
+Para poder usar correctamente los sp de insert, hay que ejecutar los triggers primero.
