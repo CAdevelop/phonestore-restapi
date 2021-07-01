@@ -53,10 +53,5 @@ exec sp_actualizarTelefono 1, 'Royale', 'Android', '20MP', '10MP', '5000mAh', '1
 exec sp_actualizarProveedor 1, 'Martin', 'Quevedo', 'martin@gmail.com', '81457391'
 exec sp_actualizarUsuario 1, 'Eduardo', 'Varela', 'csmike81@gmail.com', 'Guapo';
 exec sp_actualizarEntrada 1, 3, 2, 1, 'Ninguna', 15;
-
-exec sp_obtenerVentaPorId 4;
-exec sp_obtenerTelefonoPorId 3;
-exec sp_actualizarVenta 4, 1, 3, 'Juan Calero', 'Ninguna', 15, 12.5;
-exec sp_obtenerVentaPorId 4;
-exec sp_obtenerTelefonoPorId 3;
+exec sp_actualizarVenta 4, 1, 3, 'Juan Calero', 'Ninguna', 20, 12.5;
 exec sp_obtenerVentas

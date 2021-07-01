@@ -25,7 +25,7 @@ as
 				procesador = @procesador, os = @os,
 				camaraPrincipal = @camaraPrincipal, camaraFrontal = @camaraFrontal, bateria = @bateria, almacenamiento = @almacenamiento,
 				ram = @ram, color = @color, estado = @estado
-			where idTelefono = @idTelefono and idEstado = 0;
+			where idTelefono = @idTelefono and activo = 0;
 
 			print 'Telefono actualizado';
 			commit transaction;
@@ -54,7 +54,7 @@ as
 		begin
 			update Persona.Proveedor set 
 				nombres = @nombres, apellidos = @apellidos, correo = @correo, telefono = @telefono
-			where idProveedor = @idProveedor and idEstado = 0;
+			where idProveedor = @idProveedor and activo = 0;
 
 			print 'Proveedor actualizado';
 			commit transaction;
@@ -83,7 +83,7 @@ as
 		begin
 			update Persona.Usuario set 
 				nombres = @nombres, apellidos = @apellidos, correo = @correo, rol = @rol
-			where idUsuario = @idUsuario and idEstado = 0
+			where idUsuario = @idUsuario and activo = 0
 
 			print 'Usuario actualizado';
 			commit transaction;
@@ -116,9 +116,9 @@ as
 			@cantidadAnteriorTelefonos smallint;
 
 	set @auxIdEntrada = (select idEntrada from Entrada.Entrada where idEntrada = @idEntrada);
-	set @auxIdProveedor = (select idProveedor from Persona.Proveedor where idProveedor = @idProveedor and idEstado = 0);
-	set @auxIdUsuario = (select idUsuario from Persona.Usuario where idUsuario = @idUsuario and idEstado = 0);
-	set @auxIdTelefono = (select idTelefono from Producto.Telefono where idTelefono = @idTelefono and idEstado = 0);
+	set @auxIdProveedor = (select idProveedor from Persona.Proveedor where idProveedor = @idProveedor and activo = 0);
+	set @auxIdUsuario = (select idUsuario from Persona.Usuario where idUsuario = @idUsuario and activo = 0);
+	set @auxIdTelefono = (select idTelefono from Producto.Telefono where idTelefono = @idTelefono and activo = 0);
 
 	if ((nullif(@auxIdEntrada, '') is not null) and 
 		(nullif(@auxIdProveedor, '') is not null) and 
@@ -151,7 +151,7 @@ as
 go;
 
 -- Venta
-alter procedure sp_actualizarVenta (
+create procedure sp_actualizarVenta (
 	@idVenta int,
 	@idUsuario int,	
 	@idTelefono int,
@@ -176,8 +176,8 @@ as
 			@cantidadAnteriorTelefonos smallint;
 
 	set @auxIdVenta = (select idVenta from Salida.Venta where idVenta = @idVenta);
-	set @auxIdUsuario = (select idUsuario from Persona.Usuario where idUsuario = @idUsuario and idEstado = 0);
-	set @auxIdTelefono = (select idTelefono from Producto.Telefono where idTelefono = @idTelefono and idEstado = 0);
+	set @auxIdUsuario = (select idUsuario from Persona.Usuario where idUsuario = @idUsuario and activo = 0);
+	set @auxIdTelefono = (select idTelefono from Producto.Telefono where idTelefono = @idTelefono and activo = 0);
 
 	if ((nullif(@auxIdVenta, '') is not null) and
 		(nullif(@auxIdUsuario, '') is not null) and 

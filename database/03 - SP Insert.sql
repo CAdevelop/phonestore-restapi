@@ -4,8 +4,6 @@ go;
 -- Telefonos
 create procedure sp_nuevoTelefono (
 	@nombre varchar(50),
-	@idUsuario int,
-	@proveedor varchar(60),
 	@marca varchar(30),
 	@procesador varchar(30),
 	@os varchar(20),
@@ -19,7 +17,9 @@ create procedure sp_nuevoTelefono (
 	@precioCompra money,
 	@existencias smallint,
 	@existenciasMinimas smallint,
-	@estado varchar(20)
+	@estado varchar(20),
+	@idUsuario int,
+	@proveedor varchar(60)
 )
 as
 	set nocount on;
