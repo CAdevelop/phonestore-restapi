@@ -1,9 +1,11 @@
-use PhoneStore;
+ use PhoneStore;
 go;
 
 -- Telefonos
 create procedure sp_nuevoTelefono (
 	@nombre varchar(50),
+	@idUsuario int,
+	@proveedor varchar(60),
 	@marca varchar(30),
 	@procesador varchar(30),
 	@os varchar(20),
@@ -17,9 +19,7 @@ create procedure sp_nuevoTelefono (
 	@precioCompra money,
 	@existencias smallint,
 	@existenciasMinimas smallint,
-	@estado varchar(20),
-	@idUsuario int,
-	@proveedor varchar(60)
+	@estado varchar(20)
 )
 as
 	set nocount on;
@@ -37,11 +37,11 @@ as
 	if ((nullif(@idProveedor, '') is not null) and (nullif(@idTelefono, '') is null)) 
 		begin
 			insert into Producto.Telefono (
-				idEstado, nombre, marca, procesador, os, camaraPrincipal,
-				camaraFrontal, bateria, almacenamiento, ram, color, estado
+				nombre, marca, procesador, os, camaraPrincipal,
+				camaraFrontal, bateria, almacenamiento, ram, color, estado, activo
 			) values (
-				0, @nombre, @marca, @procesador, @os, @camaraPrincipal,
-				@camaraFrontal, @bateria, @almacenamiento, @ram, @color, @estado
+				@nombre, @marca, @procesador, @os, @camaraPrincipal,
+				@camaraFrontal, @bateria, @almacenamiento, @ram, @color, @estado, 0
 			);
 
 			set @idTelefono = @@IDENTITY;
@@ -96,9 +96,9 @@ as
 	if (nullif(@idProveedor, '') is null)
 		begin
 			insert into Persona.Proveedor (
-				idEstado, nombres, apellidos, correo, telefono
+				nombres, apellidos, correo, telefono, activo
 			) values (
-				0, @nombres, @apellidos, @correo, @telefono
+				@nombres, @apellidos, @correo, @telefono, 0
 			);
 
 			print 'Proveedor creado';
@@ -129,9 +129,9 @@ as
 	if (nullif(@idUsuario, '') is null)
 		begin
 			insert into Persona.Usuario (
-				idEstado, nombres, apellidos, correo, rol
+				nombres, apellidos, correo, rol, activo
 			) values (
-				0, @nombres, @apellidos, @correo, @rol
+				@nombres, @apellidos, @correo, @rol, 0
 			);
 
 			print 'Usuario creado';

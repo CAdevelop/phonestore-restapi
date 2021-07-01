@@ -1,6 +1,7 @@
 use PhoneStore;
 go;
 
+-- Triggers para insert
 create trigger TIactualizarStockEntrada on Entrada.Detalle_Entrada
 after insert
 as

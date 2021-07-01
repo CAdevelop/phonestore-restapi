@@ -22,19 +22,9 @@ create schema Entrada;
 create schema Salida;
 create schema Producto;
 create schema Persona;
-create schema Estado;
-
-create table Estado.Estado (
-	idEstado int constraint pk_Estado_idEstado primary key,
-	estado varchar(10) not null
-);
-
-insert into Estado.Estado (idEstado, estado) values (0, 'Activo'), (1, 'Inactivo');
 
 create table Producto.Telefono (
 	idTelefono int constraint pk_Telefono_idTelefono primary key identity(1,1),
-	idEstado int constraint fk_Telefono_idEstado foreign key 
-	references Estado.Estado (idEstado),
 	nombre varchar(50) not null,
 	marca varchar(30) not null,
 	procesador varchar(30) not null,
@@ -45,7 +35,8 @@ create table Producto.Telefono (
 	almacenamiento varchar(20) not null,
 	ram varchar(20) not null,
 	color varchar(20) not null,
-	estado varchar(20) not null
+	estado varchar(20) not null,
+	activo bit default 0 not null,
 );
 
 create table Producto.Detalle_Telefono (
@@ -54,27 +45,25 @@ create table Producto.Detalle_Telefono (
 	precioVenta money not null, 
 	precioCompra money not null, 
 	existencias smallint not null,
-	existenciasMinimas smallint not null,
+	existenciasMinimas smallint not null
 );
 
 create table Persona.Usuario (
 	idUsuario int constraint pk_Usuario_idUsuario primary key identity(1,1),
-	idEstado int constraint fk_Usuario_idEstado foreign key 
-	references Estado.Estado (idEstado),
 	nombres varchar(30) not null,
 	apellidos varchar(30) not null,
 	correo varchar(50) not null,
-	rol varchar(20) not null
+	rol varchar(20) not null,
+	activo bit default 0 not null
 );
 
 create table Persona.Proveedor (
 	idProveedor int constraint pk_Proveedor_idProveedor primary key identity(1,1),
-	idEstado int constraint fk_Proveedor_idEstado foreign key 
-	references Estado.Estado (idEstado),
 	nombres varchar(30) not null,
 	apellidos varchar(30) not null,
 	correo varchar(50) not null,
-	telefono varchar(20) not null
+	telefono varchar(20) not null,
+	activo bit default 0 not null
 );
 
 create table Entrada.Entrada (

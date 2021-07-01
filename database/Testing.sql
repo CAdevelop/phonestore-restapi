@@ -15,11 +15,11 @@ exec sp_nuevoUsuario 'Halsey', 'Nochon', '', 'Administrador';
 exec sp_nuevoUsuario 'Ricardo', 'Mayorga', '', 'Administrador';
 exec sp_nuevoUsuario 'Juan', 'Caldera', '', 'Administrador';
 
-exec sp_nuevoTelefono 'Galaxy S7', 'Samsung', 'Exynos', 'Android', '12MP', '5MP', '3000mAh', '32GB', '4GB', 'Negro', '300', '250', '7', '2', 'Usado', 1, 'Luis Gonzalez';
-exec sp_nuevoTelefono 'Galaxy S8', 'Samsung', 'Exynos', 'Android', '20MP', '8MP', '7000mAh', '64GB', '2GB', 'Rojo', '500', '450', '15', '3', 'Nuevo', 1, 'Eduardo Antonio Varela Orozco';
-exec sp_nuevoTelefono 'Galaxy S9', 'Samsung', 'Exynos', 'Android', '12MP', '7MP', '4000mAh', '32GB', '2GB', 'Negro', '1000', '900', '20', '5', 'Usado', 3, 'Luis Gonzalez';
-exec sp_nuevoTelefono 'IPhone 12', 'Apple', 'Intel', 'iOS', '13MP', '5MP', '5200mAh', '64GB', '6GB', 'Celeste', '300', '150', '35', '15', 'Nuevo', 1, 'Maria Artola';
-exec sp_nuevoTelefono 'ZenPhone 4', 'ASUS', 'MediaTek', 'Android', '12MP', '5MP', '4500mAh', '128GB', '4GB', 'Rosado', '600', '400', '90', '20', 'Usado', 5, 'Luis Gonzalez';
+exec sp_nuevoTelefono 'Galaxy S7', 'Samsung', 'Exynos', 'Android', '12MP', '5MP', '3000mAh', '32GB', '4GB', 'Negro', '300', '250', 7, 2, 'Usado', 1, 'Luis Gonzalez';
+exec sp_nuevoTelefono 'Galaxy S8', 'Samsung', 'Exynos', 'Android', '20MP', '8MP', '7000mAh', '64GB', '2GB', 'Rojo', '500', '450', 15, 3, 'Nuevo', 1, 'Eduardo Antonio Varela Orozco';
+exec sp_nuevoTelefono 'Galaxy S9', 'Samsung', 'Exynos', 'Android', '12MP', '7MP', '4000mAh', '32GB', '2GB', 'Negro', '1000', '900', 20, 5, 'Usado', 3, 'Luis Gonzalez';
+exec sp_nuevoTelefono 'IPhone 12', 'Apple', 'Intel', 'iOS', '13MP', '5MP', '5200mAh', '64GB', '6GB', 'Celeste', '300', '150', 35, 15, 'Nuevo', 1, 'Maria Artola';
+exec sp_nuevoTelefono 'ZenPhone 4', 'ASUS', 'MediaTek', 'Android', '12MP', '5MP', '4500mAh', '128GB', '4GB', 'Rosado', '600', '400', 90, 20, 'Usado', 5, 'Luis Gonzalez';
 
 exec sp_nuevaEntrada 'Eduardo Antonio Varela Orozco', 2 , 'Galaxy S7', 40, '';
 exec sp_nuevaEntrada 'Luis Gonzalez', 5 , 'Galaxy S7', 30, '';
@@ -42,8 +42,21 @@ exec sp_obtenerTelefonoPorId 2;
 exec sp_obtenerProveedores;
 exec sp_obtenerProveedorPorId 3;
 exec sp_obtenerUsuarios;
-exec sp_obtenerUsuarioPorId 3;
+exec sp_obtenerUsuarioPorId 1;
 exec sp_obtenerEntradas;
 exec sp_obtenerEntradaPorId 10;
 exec sp_obtenerVentas;
 exec sp_obtenerVentaPorId 5;
+
+-- Testing de actualización
+exec sp_actualizarTelefono 1, 'Royale', 'Android', '20MP', '10MP', '5000mAh', '128GB', '6GB', 'Rojo', 'Nuevo';
+exec sp_actualizarProveedor 1, 'Martin', 'Quevedo', 'martin@gmail.com', '81457391'
+exec sp_actualizarUsuario 1, 'Eduardo', 'Varela', 'csmike81@gmail.com', 'Guapo';
+exec sp_actualizarEntrada 1, 3, 2, 1, 'Ninguna', 15;
+
+exec sp_obtenerVentaPorId 4;
+exec sp_obtenerTelefonoPorId 3;
+exec sp_actualizarVenta 4, 1, 3, 'Juan Calero', 'Ninguna', 15, 12.5;
+exec sp_obtenerVentaPorId 4;
+exec sp_obtenerTelefonoPorId 3;
+exec sp_obtenerVentas
