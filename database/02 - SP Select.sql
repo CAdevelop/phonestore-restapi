@@ -8,7 +8,8 @@ as
 			T.almacenamiento, T.ram, T.color, T.estado, DT.precioVenta, DT.precioCompra, DT.existencias, DT.existenciasMinimas
 	from Producto.Telefono T
 		inner join Producto.Detalle_Telefono DT
-		on T.idTelefono = DT.idTelefono;
+		on T.idTelefono = DT.idTelefono
+	where T.idEstado = 0;
 go;
 
 create procedure sp_obtenerTelefonoPorId (
@@ -20,33 +21,37 @@ as
 	from Producto.Telefono T
 		inner join Producto.Detalle_Telefono DT
 		on T.idTelefono = DT.idTelefono
-	where T.idTelefono = @id;
+	where T.idEstado = 0 and T.idTelefono = @id;
 go;
 
 -- Proveedores
 create procedure sp_obtenerProveedores
 as
-	select * from Persona.Proveedor;
+	select idProveedor, nombres, apellidos, correo, telefono 
+	from Persona.Proveedor where idEstado = 0;
 go;
 
 create procedure sp_obtenerProveedorPorId (
 	@id int
 )
 as
-	select * from Persona.Proveedor where idProveedor = @id;
+	select idProveedor, nombres, apellidos, correo, telefono 
+	from Persona.Proveedor where idProveedor = @id and idEstado = 0;
 go;
 
 -- Usuarios
 create procedure sp_obtenerUsuarios
 as
-	select * from Persona.Usuario;
+	select idUsuario, nombres, apellidos, correo, rol 
+	from Persona.Usuario where idEstado = 0;
 go;
 
 create procedure sp_obtenerUsuarioPorId (
 	@id int
 )
 as
-	select * from Persona.Usuario where idUsuario = @id;
+	select idUsuario, nombres, apellidos, correo, rol
+	from Persona.Usuario where idEstado = 0 and idUsuario = @id;
 go;
 
 -- Entrada
@@ -62,7 +67,8 @@ as
 		inner join Persona.Usuario U
 		on E.idUsuario = U.idUsuario
 		inner join Producto.Telefono T
-		on T.idTelefono = DE.idTelefono;
+		on T.idTelefono = DE.idTelefono
+	where T.idEstado = 0 and P.idEstado = 0 and U.idEstado = 0;
 go;
 
 create procedure sp_obtenerEntradaPorId (
@@ -80,7 +86,7 @@ as
 		on E.idUsuario = U.idUsuario
 		inner join Producto.Telefono T
 		on T.idTelefono = DE.idTelefono
-	where DE.idEntrada = @idEntrada;
+	where (T.idEstado = 0 and P.idEstado = 0 and U.idEstado = 0) and DE.idEntrada = @idEntrada;
 go;
 
 -- Venta
@@ -96,7 +102,8 @@ as
 		inner join Producto.Telefono T
 		on T.idTelefono = DV.idTelefono
 		inner join Producto.Detalle_Telefono DT
-		on T.idTelefono = DT.idTelefono;
+		on T.idTelefono = DT.idTelefono
+	where T.idEstado = 0 and U.idEstado = 0;
 go;
 
 create procedure sp_obtenerVentaPorId (
@@ -114,5 +121,5 @@ as
 		on T.idTelefono = DV.idTelefono
 		inner join Producto.Detalle_Telefono DT
 		on T.idTelefono = DT.idTelefono
-	where V.idVenta = @idVenta;
+	where (T.idEstado = 0 and U.idEstado = 0) and V.idVenta = @idVenta;
 go;

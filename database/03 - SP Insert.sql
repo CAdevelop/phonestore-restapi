@@ -37,10 +37,10 @@ as
 	if ((nullif(@idProveedor, '') is not null) and (nullif(@idTelefono, '') is null)) 
 		begin
 			insert into Producto.Telefono (
-				nombre, marca, procesador, os, camaraPrincipal,
+				idEstado, nombre, marca, procesador, os, camaraPrincipal,
 				camaraFrontal, bateria, almacenamiento, ram, color, estado
 			) values (
-				@nombre, @marca, @procesador, @os, @camaraPrincipal,
+				0, @nombre, @marca, @procesador, @os, @camaraPrincipal,
 				@camaraFrontal, @bateria, @almacenamiento, @ram, @color, @estado
 			);
 
@@ -95,8 +95,10 @@ as
 
 	if (nullif(@idProveedor, '') is null)
 		begin
-			insert into Persona.Proveedor values (
-				@nombres, @apellidos, @correo, @telefono
+			insert into Persona.Proveedor (
+				idEstado, nombres, apellidos, correo, telefono
+			) values (
+				0, @nombres, @apellidos, @correo, @telefono
 			);
 
 			print 'Proveedor creado';
@@ -127,9 +129,9 @@ as
 	if (nullif(@idUsuario, '') is null)
 		begin
 			insert into Persona.Usuario (
-				nombres, apellidos, correo, rol
+				idEstado, nombres, apellidos, correo, rol
 			) values (
-				@nombres, @apellidos, @correo, @rol
+				0, @nombres, @apellidos, @correo, @rol
 			);
 
 			print 'Usuario creado';
