@@ -216,3 +216,15 @@ create procedure sp_proveedores
 as
 	select (nombres + ' ' +apellidos) Proveedor from Persona.Proveedor where activo = 0;
 go;
+
+create procedure sp_telefonosPorProveedor (
+	@idProveedor int
+)
+as
+	select distinct (T.marca + ' ' +T.nombre) Telefono from Producto.Telefono T
+		inner join Entrada.Detalle_Entrada DE
+		on T.idTelefono = DE.idTelefono
+		inner join Entrada.Entrada E
+		on E.idEntrada = DE.idEntrada
+	where E.idProveedor = @idProveedor;
+go;
