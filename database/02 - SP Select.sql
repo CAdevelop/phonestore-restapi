@@ -124,6 +124,7 @@ as
 	where (T.activo = 0 and U.activo = 0) and V.idVenta = @idVenta;
 go;
 
+/*------------------ SOLICITADOS -------------------- */
 -- Login
 create procedure sp_ingreso (
 	@correo varchar(50),
