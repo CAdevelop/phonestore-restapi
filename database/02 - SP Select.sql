@@ -228,3 +228,10 @@ as
 		on E.idEntrada = DE.idEntrada
 	where E.idProveedor = @idProveedor;
 go;
+
+create procedure sp_telefonosPorNombre (
+	@nombre varchar(50)
+)
+as
+	select * from Producto.TelefonoYDetalle where nombre like '%' + @nombre + '%';
+go;
