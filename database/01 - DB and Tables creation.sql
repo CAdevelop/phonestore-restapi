@@ -53,6 +53,7 @@ create table Persona.Usuario (
 	nombres varchar(30) not null,
 	apellidos varchar(30) not null,
 	correo varchar(50) not null,
+	contraseña varchar(30) not null,
 	rol varchar(20) not null,
 	activo bit default 0 not null
 );

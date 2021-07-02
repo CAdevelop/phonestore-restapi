@@ -123,3 +123,15 @@ as
 		on T.idTelefono = DT.idTelefono
 	where (T.activo = 0 and U.activo = 0) and V.idVenta = @idVenta;
 go;
+
+-- Login
+create procedure sp_ingreso (
+	@correo varchar(50),
+	@contra varchar(30)
+)
+as
+	if exists (select idUsuario from Persona.Usuario where correo = @correo and contra = @contra)
+		return 1;
+	else 
+		return -1;
+go;

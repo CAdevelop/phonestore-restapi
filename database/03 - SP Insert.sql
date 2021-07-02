@@ -115,7 +115,8 @@ go;
 create procedure sp_nuevoUsuario (
 	@nombres varchar(30),
 	@apellidos varchar(30),
-	@correo varchar(50) = 'No registrado',
+	@correo varchar(50),
+	@contraseña varchar(30),
 	@rol varchar(20)
 )
 as
@@ -124,14 +125,14 @@ as
 
 	declare @idUsuario int;
 
-	set @idUsuario = (select idUsuario from Persona.Usuario where nombres = @nombres and apellidos = @apellidos);
+	set @idUsuario = (select idUsuario from Persona.Usuario where correo = @correo);
 
 	if (nullif(@idUsuario, '') is null)
 		begin
 			insert into Persona.Usuario (
-				nombres, apellidos, correo, rol, activo
+				nombres, apellidos, correo, contraseña, rol, activo
 			) values (
-				@nombres, @apellidos, @correo, @rol, 0
+				@nombres, @apellidos, @correo, @contraseña, @rol, 0
 			);
 
 			print 'Usuario creado';
