@@ -192,3 +192,22 @@ create procedure sp_verTelefonoYDetalle
 as
 	select * from Producto.TelefonoYDetalle;
 go;
+
+create procedure sp_topTelefonos
+as
+	select top 6 T.idTelefono, T.nombre, T.marca, sum(DV.cantidadVendida) [Cantidad Vendida] from Producto.Telefono T
+		inner join Salida.Detalle_Venta DV
+		on T.idTelefono = DV.idTelefono
+	group by T.idTelefono, T.nombre, T.marca order by [Cantidad Vendida] desc
+go;
+
+create procedure sp_ventas7Dias
+as
+	select T.nombre, T.marca, Convert(money, Round(sum(V.subTotal * (V.descuento / 100)), 2), 103) Recaudacion, V.fechaVenta from Producto.Telefono T
+		inner join Salida.Detalle_Venta DV
+		on T.idTelefono = DV.idTelefono
+		inner join Salida.Venta V
+		on V.idVenta = DV.idVenta
+	where V.fechaVenta >= dateadd(day, -7, V.fechaVenta)
+	group by T.nombre, T.marca, V.fechaVenta order by Recaudacion desc;
+go;
