@@ -9,11 +9,11 @@ exec sp_nuevoProveedor 'Maria', 'Artola', 'ejemplo@ejemplo.com', '78454126';
 exec sp_nuevoProveedor 'Gisselle Nayeli', 'Romero Castillo', 'correo@correo.com', '46548979'; 
 exec sp_nuevoProveedor 'Allison Nicole', 'Cerda Hernandez', 'ali@maria.com', '31354987'; 
 
-exec sp_nuevoUsuario 'Eduardo Antonio', 'Varela Orozco', 'eduardovarela139@gmail.com', 'Administrador';
-exec sp_nuevoUsuario 'Antonella', 'Gozo', 'eduardovarela139@gmail.com', 'Administrador';
-exec sp_nuevoUsuario 'Halsey', 'Nochon', '', 'Administrador';
-exec sp_nuevoUsuario 'Ricardo', 'Mayorga', '', 'Administrador';
-exec sp_nuevoUsuario 'Juan', 'Caldera', '', 'Administrador';
+exec sp_nuevoUsuario 'Eduardo Antonio', 'Varela Orozco', 'eduardovarela139@gmail.com', '1234', 'Administrador';
+exec sp_nuevoUsuario 'Antonella', 'Gozo', 'csmike@gmail.com', '1234', 'Administrador';
+exec sp_nuevoUsuario 'Halsey', 'Nochon', 'correo@correo.com', '1234', 'Administrador';
+exec sp_nuevoUsuario 'Ricardo', 'Mayorga', 'past@time.com', '1234', 'Administrador';
+exec sp_nuevoUsuario 'Juan', 'Caldera', 'city@disorder.com', '1234', 'Administrador';
 
 exec sp_nuevoTelefono 'Galaxy S7', 'Samsung', 'Exynos', 'Android', '12MP', '5MP', '3000mAh', '32GB', '4GB', 'Negro', '300', '250', 7, 2, 'Usado', 1, 'Luis Gonzalez';
 exec sp_nuevoTelefono 'Galaxy S8', 'Samsung', 'Exynos', 'Android', '20MP', '8MP', '7000mAh', '64GB', '2GB', 'Rojo', '500', '450', 15, 3, 'Nuevo', 1, 'Eduardo Antonio Varela Orozco';
@@ -55,3 +55,11 @@ exec sp_actualizarUsuario 1, 'Eduardo', 'Varela', 'csmike81@gmail.com', 'Guapo';
 exec sp_actualizarEntrada 1, 3, 2, 1, 'Ninguna', 15;
 exec sp_actualizarVenta 4, 1, 3, 'Juan Calero', 'Ninguna', 20, 12.5;
 exec sp_obtenerVentas
+
+/* TESTING NUEVOS METODOS */
+
+exec sp_ingreso 'eduardovarela139@gmail.com', '1234';
+exec sp_insertarEntrada 1, 'Nueva observacion', 1;
+exec sp_insertarDetalleEntrada 13, 1, 2;
+exec sp_insertarVenta 'Nueva observacion', 1, 12.5, 'Eduardo Varela', 1500;
+exec sp_insertarDetalleVenta 6, 1, 15

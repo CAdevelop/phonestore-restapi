@@ -255,3 +255,133 @@ as
 			rollback transaction;
 		end
 go;
+
+/* ------------ SOLICITADOS -------------- */
+
+-- Entrada
+create procedure sp_insertarEntrada (
+	@idProveedor int,
+	@observacion varchar(200),
+	@idUsuario int
+)
+as
+	set nocount on;
+	begin transaction;
+
+	declare @proveedor int,
+			@usuario int;
+
+	set @proveedor = (select idProveedor from Persona.Proveedor where idProveedor = @idProveedor and activo = 0);
+	set @usuario = (select idUsuario from Persona.Usuario where idUsuario = @idUsuario and activo = 0);
+
+	if ((nullif(@proveedor, '') is not null) and (nullif(@usuario, '') is not null)) 
+		begin
+			insert into Entrada.Entrada (fechaEntrada, idProveedor, observacion, idUsuario)
+				values (getDate(), @idProveedor, @observacion, @idUsuario);
+
+			print 'Entrada completa';
+			commit transaction;
+		end
+	else 
+		begin
+			print 'El proveedor y/o usuario no existen';
+			rollback transaction;
+		end
+go;
+
+-- Detalle Entrada
+create procedure sp_insertarDetalleEntrada (
+	@idEntrada int,
+	@idTelefono int,
+	@cantidadEntrante smallint
+)
+as
+	set nocount on;
+	begin transaction;
+
+	declare @telefono int,
+			@entrada int;
+
+	set @telefono = (select idTelefono from Producto.Telefono where idTelefono = @idTelefono and activo = 0);
+	set @entrada = (select idEntrada from Entrada.Entrada where idEntrada = @idEntrada);
+
+	if ((nullif(@telefono, '') is not null) and 
+		(@cantidadEntrante > 0) and 
+		(nullif(@entrada, '') is not null)) 
+		begin
+			insert into Entrada.Detalle_Entrada(idEntrada, idTelefono, cantidadEntrante)
+				values (@idEntrada, @idTelefono, @cantidadEntrante);
+
+			print 'Entrada Detalle completa';
+			commit transaction;
+		end
+	else 
+		begin
+			print 'El Telefono y/o la entrada no existen o la cantidad entrante es menor o igual a 0';
+			rollback transaction;
+		end
+go;
+
+-- Venta
+create procedure sp_insertarVenta (
+	@observacion varchar(200),
+	@idUsuario int,
+	@descuento decimal(5,2),
+	@cliente varchar(50),
+	@subTotal money
+)
+as
+	set nocount on;
+	begin transaction;
+
+	declare @usuario int;
+
+	set @usuario = (select idUsuario from Persona.Usuario where idUsuario = @idUsuario and activo = 0);
+
+	if (nullif(@usuario, '') is not null) 
+		begin
+			insert into Salida.Venta (fechaVenta, observacion, idUsuario, descuento, cliente, subTotal)
+				values (getDate(), @observacion, @idUsuario, @descuento, @cliente, @subTotal);
+
+			print 'Venta completa';
+			commit transaction;
+		end
+	else 
+		begin
+			print 'El usuario no existe';
+			rollback transaction;
+		end
+go;
+
+-- Detalle Entrada
+create procedure sp_insertarDetalleVenta (
+	@idVenta int,
+	@idTelefono int,
+	@cantidadVendida smallint
+)
+as
+	set nocount on;
+	begin transaction;
+
+	declare @telefono int,
+			@venta int;
+
+	set @telefono = (select idTelefono from Producto.Telefono where idTelefono = @idTelefono and activo = 0);
+	set @venta = (select idVenta from Salida.Detalle_Venta where idVenta = @idVenta);
+
+	if ((nullif(@telefono, '') is not null) and 
+		(@cantidadVendida > 0) and 
+		(nullif(@venta, '') is not null)) 
+		begin
+			insert into Salida.Detalle_Venta(idVenta, idTelefono, cantidadVendida)
+				values (@idVenta, @idTelefono, @cantidadVendida);
+
+			print 'Venta Detalle completa';
+			commit transaction;
+		end
+	else 
+		begin
+			print 'El Telefono y/o la venta no existen o la cantidad entrante es menor o igual a 0';
+			rollback transaction;
+		end
+go;

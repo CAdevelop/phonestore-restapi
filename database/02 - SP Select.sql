@@ -131,8 +131,59 @@ create procedure sp_ingreso (
 	@contra varchar(30)
 )
 as
-	if exists (select idUsuario from Persona.Usuario where correo = @correo and contra = @contra)
-		return 1;
+	if exists (select idUsuario from Persona.Usuario where correo = @correo and contraseña = @contra)
+		select 1 as Respuesta
 	else 
-		return -1;
+		select -1 as Respuesta;
+go;
+
+-- Entradas
+create procedure sp_verEntradas 
+as
+	select * from Entrada.Entrada;
+go;
+
+create procedure sp_verEntradaPorId (
+	@id int
+)
+as
+	select * from Entrada.Entrada where idEntrada = @id;
+go;
+
+-- Detalles entrada
+create procedure sp_verDetallesEntrada 
+as
+	select * from Entrada.Detalle_Entrada;
+go;
+
+create procedure sp_verDetalleEntradaPorId (
+	@id int
+)
+as
+	select * from Entrada.Detalle_Entrada where idEntrada = @id;
+go;
+-- Ventas
+create procedure sp_verVentas 
+as
+	select * from Salida.Venta;
+go;
+
+create procedure sp_verVentaPorId (
+	@id int
+)
+as
+	select * from Salida.Venta where idVenta = @id;
+go;
+
+-- Detalle Ventas
+create procedure sp_verDetalleVentas 
+as
+	select * from Salida.Detalle_Venta;
+go;
+
+create procedure sp_verDetalleVentaPorId (
+	@id int
+)
+as
+	select * from Salida.Detalle_Venta where idVenta = @id;
 go;
