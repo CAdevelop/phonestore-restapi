@@ -211,3 +211,8 @@ as
 	where V.fechaVenta >= dateadd(day, -7, V.fechaVenta)
 	group by T.nombre, T.marca, V.fechaVenta order by Recaudacion desc;
 go;
+
+create procedure sp_proveedores 
+as
+	select (nombres + ' ' +apellidos) Proveedor from Persona.Proveedor where activo = 0;
+go;
