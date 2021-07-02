@@ -187,3 +187,8 @@ create procedure sp_verDetalleVentaPorId (
 as
 	select * from Salida.Detalle_Venta where idVenta = @id;
 go;
+
+create procedure sp_verTelefonoYDetalle
+as
+	select * from Producto.TelefonoYDetalle;
+go;
